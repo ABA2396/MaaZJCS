@@ -210,6 +210,22 @@
     "next": ["MapSearch_Check_Collected3", "MapSearch_ClearLevelHits3"]
   },
 
+  "MapSearch_Recognize_Finely_Forged_Stone":{
+    "recognition": "TemplateMatch",
+    "template": ["精锻石.png"],
+    "roi": [
+      0,
+      300,
+      720,
+      650
+    ],
+    "green_mask": true,
+    "action": "Click",
+    "target": true,
+    "post_delay": 500,
+    "next": ["MapSearch_Check_Collected_Finely_Forged_Stone", "MapSearch_ClearLevelHits_Finely_Forged_Stone"]
+  },
+
   "MapSearch_Check_Collected1": {
     "recognition": "TemplateMatch",
     "template": ["collected_today.png"],
@@ -234,8 +250,16 @@
     "post_delay": 100,
     "max_hit": 1
   },
+  "MapSearch_Check_Collected_Finely_Forged_Stone": {
+    "recognition": "TemplateMatch",
+    "template": ["collected_today.png"],
+    "green_mask": true,
+    "action": "DoNothing",
+    "post_delay": 100,
+    "max_hit": 1
+  },
 
-  "PersonalPage": {
+    "PersonalPage": {
     "recognition": "TemplateMatch",
     "template": ["personal_page.png"],
     "roi": [
@@ -261,7 +285,10 @@
     "action": "Custom",
     "custom_action": "MapSearch_ClearLevelHits3"
   },
-
+  "MapSearch_ClearLevelHits_Finely_Forged_Stone": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ClearLevelHits_Finely_Forged_Stone"
+  },
 
   "MapSearch_Row_Loop_LR": { "next": ["MapSearch_MoveH_LR", "MapSearch_Row_End_LR"] },
   "MapSearch_Row_Loop_RL": { "next": ["MapSearch_MoveH_RL", "MapSearch_Row_End_RL"] },

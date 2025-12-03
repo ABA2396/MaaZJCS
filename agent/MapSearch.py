@@ -47,6 +47,15 @@ class MapSearchClearLevelHits3(CustomAction):
 
         return CustomAction.RunResult(success=True)
 
+@AgentServer.custom_action("MapSearch_ClearLevelHits_Finely_Forged_Stone")
+class MapSearchClearLevelHits_Finely_Forged_Stone(CustomAction):
+    def run(self, context: Context, argv: CustomAction.RunArg) -> CustomAction.RunResult:
+        try:
+            context.clear_hit_count("MapSearch_Recognize_Finely_Forged_Stone")
+        except Exception:
+            return CustomAction.RunResult(success=False)
+
+        return CustomAction.RunResult(success=True)
 
 @AgentServer.custom_action("MapSearch_StartReset")
 class MapSearchStartReset(CustomAction):
