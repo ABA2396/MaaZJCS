@@ -1,5 +1,105 @@
 {
-  "MapSearch_Start": { "next": ["MapSearch_MoveLeft_Init"] },
+  "Stop": {},
+
+  "MapSearch_Run_All": {
+    "next": [
+      "MapSearch_Click_World"
+    ]
+  },
+  "MapSearch_Click_World": {
+    "recognition": "TemplateMatch",
+    "template": ["world_icon.png"],
+    "roi":[
+      580,
+      1180,
+      140,
+      100
+    ],
+    "action": "Click",
+    "target": true,
+    "post_delay": 500,
+    "next": [
+      "[JumpBack]MapSearch_Country_Sen",
+      "[JumpBack]MapSearch_Country_Shan",
+      "[JumpBack]MapSearch_Country_Ze",
+      "[JumpBack]MapSearch_Country_Long",
+      "[JumpBack]MapSearch_Country_Yu",
+      "[JumpBack]MapSearch_Click_World",
+      "[JumpBack]MapSearch_Click_Return"
+    ]
+  },
+
+  "MapSearch_Country_Sen": {
+    "recognition": "OCR",
+    "expected": "森之国",
+    "action": "Click",
+    "target": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Start"]
+  },
+
+  "MapSearch_Country_Shan": {
+    "recognition": "OCR",
+    "expected": "山之国",
+    "action": "Click",
+    "target": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Start"]
+  },
+
+  "MapSearch_Country_Ze": {
+    "recognition": "OCR",
+    "expected": "泽之国",
+    "action": "Click",
+    "target": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Start"]
+  },
+
+  "MapSearch_Country_Long": {
+    "recognition": "OCR",
+    "expected": "龙之国",
+    "action": "Click",
+    "target": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Start"]
+  },
+
+  "MapSearch_Country_Yu": {
+    "recognition": "OCR",
+    "expected": "羽之国",
+    "action": "Click",
+    "target": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Start"]
+  },
+
+  "MapSearch_Click_Return": {
+    "recognition": "TemplateMatch",
+    "template": ["back_button.png"],
+    "roi":[
+      0,
+      1180,
+      160,
+      100
+    ],
+    "action": "Click",
+    "target": true,
+    "post_delay": 5000,
+    "next": ["MapSearch_Click_Return", "Stop"]
+  },
+
+  "MapSearch_Start": {
+    "action": "Custom",
+    "custom_action": "MapSearch_StartReset",
+    "next": ["MapSearch_MoveLeft_Init"]
+  },
+
 
   "MapSearch_MoveLeft_Init": {
     "action": "Swipe",
@@ -21,7 +121,21 @@
 
   "MapSearch_Recognize_Level1": {
     "recognition": "TemplateMatch",
-    "template": ["泽1.png", "龙1.png"],
+    "template": ["森1.png", "山1.png", "泽1.png", "龙1.png"],
+    "roi": [
+      100,
+      300,
+      620,
+      650
+    ],
+    "green_mask": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Recognize_Level1ReCheck", "Stop"]
+  },
+  "MapSearch_Recognize_Level1ReCheck": {
+    "recognition": "TemplateMatch",
+    "template": ["森1.png", "山1.png", "泽1.png", "龙1.png"],
     "roi": [
       100,
       300,
@@ -31,31 +145,58 @@
     "green_mask": true,
     "action": "Click",
     "target": true,
-    "post_delay": 1000,
-    "max_hit": 1,
+    "post_delay": 500,
     "next": ["MapSearch_Check_Collected1", "MapSearch_ClearLevelHits1"]
   },
 
   "MapSearch_Recognize_Level2": {
     "recognition": "TemplateMatch",
-    "template": ["山2.png"],
+    "template": ["森2.png", "山2.png", "泽2.png", "龙2.png"],
     "roi": [
-      100,
+      80,
       300,
-      620,
+      560,
+      650
+    ],
+    "green_mask": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Recognize_Level2ReCheck", "Stop"]
+  },
+  "MapSearch_Recognize_Level2ReCheck": {
+    "recognition": "TemplateMatch",
+    "template": ["森2.png", "山2.png", "泽2.png", "龙2.png"],
+    "doc": "泽2 的鱼会动，不一定能识别到",
+    "roi": [
+      80,
+      300,
+      560,
       650
     ],
     "green_mask": true,
     "action": "Click",
     "target": true,
-    "post_delay": 1000,
-    "max_hit": 1,
+    "post_delay": 500,
     "next": ["MapSearch_Check_Collected2", "MapSearch_ClearLevelHits2"]
   },
 
   "MapSearch_Recognize_Level3": {
     "recognition": "TemplateMatch",
-    "template": ["山3.png"],
+    "template": ["森3.png", "山3.png", "泽3.png", "龙3.png"],
+    "roi": [
+      80,
+      300,
+      560,
+      650
+    ],
+    "green_mask": true,
+    "post_delay": 1500,
+    "max_hit": 1,
+    "next": ["MapSearch_Recognize_Level3ReCheck", "Stop"]
+  },
+  "MapSearch_Recognize_Level3ReCheck": {
+    "recognition": "TemplateMatch",
+    "template": ["森3.png", "山3.png", "泽3.png", "龙3.png"],
     "roi": [
       0,
       300,
@@ -65,8 +206,7 @@
     "green_mask": true,
     "action": "Click",
     "target": true,
-    "post_delay": 1000,
-    "max_hit": 1,
+    "post_delay": 500,
     "next": ["MapSearch_Check_Collected3", "MapSearch_ClearLevelHits3"]
   },
 
@@ -95,6 +235,20 @@
     "max_hit": 1
   },
 
+  "PersonalPage": {
+    "recognition": "TemplateMatch",
+    "template": ["personal_page.png"],
+    "roi": [
+      0,
+      500,
+      250,
+      250
+    ],
+    "action": "Click",
+    "target": [360, 10],
+    "post_delay": 1000
+  },
+
   "MapSearch_ClearLevelHits1": {
     "action": "Custom",
     "custom_action": "MapSearch_ClearLevelHits1"
@@ -114,15 +268,15 @@
 
   "MapSearch_MoveH_LR": {
     "action": "Swipe",
-    "begin": [150, 640],
-    "end": [570, 640],
-    "duration": 400,
-    "post_delay": 1000,
-    "max_hit": 60,
+    "begin": [250, 640],
+    "end": [500, 640],
+    "duration": 500,
+    "max_hit": 80,
     "next": [
       "[JumpBack]MapSearch_Recognize_Level1",
       "[JumpBack]MapSearch_Recognize_Level2",
       "[JumpBack]MapSearch_Recognize_Level3",
+      "[JumpBack]PersonalPage",
       "MapSearch_MoveH_LR",
       "MapSearch_Row_End_LR"
     ]
@@ -130,15 +284,15 @@
 
   "MapSearch_MoveH_RL": {
     "action": "Swipe",
-    "begin": [570, 640],
-    "end": [150, 640],
-    "duration": 400,
-    "post_delay": 1000,
-    "max_hit": 60,
+    "begin": [500, 640],
+    "end": [250, 640],
+    "duration": 500,
+    "max_hit": 80,
     "next": [
       "[JumpBack]MapSearch_Recognize_Level1",
       "[JumpBack]MapSearch_Recognize_Level2",
       "[JumpBack]MapSearch_Recognize_Level3",
+      "[JumpBack]PersonalPage",
       "MapSearch_MoveH_RL",
       "MapSearch_Row_End_RL"
     ]
@@ -161,7 +315,7 @@
     "end": [360, 700],
     "duration": 500,
     "post_delay": 500,
-    "max_hit": 50,
+    "max_hit": 25,
     "next": ["MapSearch_Row_Loop_RL"]
   },
 
@@ -171,7 +325,7 @@
     "end": [360, 700],
     "duration": 500,
     "post_delay": 500,
-    "max_hit": 50,
+    "max_hit": 25,
     "next": ["MapSearch_Row_Loop_LR"]
   }
 }

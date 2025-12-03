@@ -46,3 +46,17 @@ class MapSearchClearLevelHits3(CustomAction):
             return CustomAction.RunResult(success=False)
 
         return CustomAction.RunResult(success=True)
+
+
+@AgentServer.custom_action("MapSearch_StartReset")
+class MapSearchStartReset(CustomAction):
+    def run(self, context: Context, argv: CustomAction.RunArg) -> CustomAction.RunResult:
+        try:
+            context.clear_hit_count("MapSearch_MoveLeft_Init")
+            context.clear_hit_count("MapSearch_MoveUp_Init")
+            context.clear_hit_count("MapSearch_MoveDown_From_LR")
+            context.clear_hit_count("MapSearch_MoveDown_From_RL")
+        except Exception:
+            return CustomAction.RunResult(success=False)
+
+        return CustomAction.RunResult(success=True)

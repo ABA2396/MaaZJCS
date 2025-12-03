@@ -21,26 +21,14 @@
             "{PROJECT_DIR}/../agent/main.py"
         ]
     },
-    "option": {
-        "任务选项1": {
-            "cases": [
-                {
-                    "name": "文本1",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本1"
-                        }
-                    }
-                },
-                {
-                    "name": "文本2",
-                    "pipeline_override": {
-                        "OcrTask": {
-                            "text": "文本2"
-                        }
-                    }
-                }
-            ]
+    "task": [
+        {
+            "name": "所有国度采集",
+            "entry": "MapSearch_Run_All"
+        },
+        {
+            "name": "当前国度采集",
+            "entry": "MapSearch_Start"
         }
-    }
+    ]
 }
