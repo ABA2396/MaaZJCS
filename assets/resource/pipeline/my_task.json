@@ -6,6 +6,15 @@
       "MapSearch_Click_World"
     ]
   },
+
+  "MapSearch_Run_Current": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ResetOverrides",
+    "next": [
+      "MapSearch_Start"
+    ]
+  },
+
   "MapSearch_Click_World": {
     "recognition": "TemplateMatch",
     "template": ["world_icon.png"],
@@ -36,7 +45,7 @@
     "target": true,
     "post_delay": 1500,
     "max_hit": 1,
-    "next": ["MapSearch_Start"]
+    "next": ["MapSearch_SetCountry_Sen"]
   },
 
   "MapSearch_Country_Shan": {
@@ -46,7 +55,7 @@
     "target": true,
     "post_delay": 1500,
     "max_hit": 1,
-    "next": ["MapSearch_Start"]
+    "next": ["MapSearch_SetCountry_Shan"]
   },
 
   "MapSearch_Country_Ze": {
@@ -56,7 +65,7 @@
     "target": true,
     "post_delay": 1500,
     "max_hit": 1,
-    "next": ["MapSearch_Start"]
+    "next": ["MapSearch_SetCountry_Ze"]
   },
 
   "MapSearch_Country_Long": {
@@ -66,7 +75,7 @@
     "target": true,
     "post_delay": 1500,
     "max_hit": 1,
-    "next": ["MapSearch_Start"]
+    "next": ["MapSearch_SetCountry_Long"]
   },
 
   "MapSearch_Country_Yu": {
@@ -76,6 +85,37 @@
     "target": true,
     "post_delay": 1500,
     "max_hit": 1,
+    "next": ["MapSearch_SetCountry_Yu"]
+  },
+
+  "MapSearch_SetCountry_Sen": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ApplyCountryLimits",
+    "custom_action_param": "Sen",
+    "next": ["MapSearch_Start"]
+  },
+  "MapSearch_SetCountry_Shan": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ApplyCountryLimits",
+    "custom_action_param": "Shan",
+    "next": ["MapSearch_Start"]
+  },
+  "MapSearch_SetCountry_Ze": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ApplyCountryLimits",
+    "custom_action_param": "Ze",
+    "next": ["MapSearch_Start"]
+  },
+  "MapSearch_SetCountry_Long": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ApplyCountryLimits",
+    "custom_action_param": "Long",
+    "next": ["MapSearch_Start"]
+  },
+  "MapSearch_SetCountry_Yu": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ApplyCountryLimits",
+    "custom_action_param": "Yu",
     "next": ["MapSearch_Start"]
   },
 
@@ -99,7 +139,6 @@
     "custom_action": "MapSearch_StartReset",
     "next": ["MapSearch_MoveLeft_Init"]
   },
-
 
   "MapSearch_MoveLeft_Init": {
     "action": "Swipe",
@@ -133,7 +172,7 @@
     "end": [620, 640],
     "duration": 100,
     "max_hit": 2,
-    "next": ["MapSearch_MoveDown_Init", "MapSearch_Row_Loop_LR"]
+    "next": ["MapSearch_MoveRight_Init", "MapSearch_Row_Loop_LR"]
   },
 
   "MapSearch_Recognize_Level1": {
@@ -292,19 +331,23 @@
 
   "MapSearch_ClearLevelHits1": {
     "action": "Custom",
-    "custom_action": "MapSearch_ClearLevelHits1"
+    "custom_action": "MapSearch_ClearLevelHits",
+    "custom_action_param": "MapSearch_Recognize_Level1"
   },
   "MapSearch_ClearLevelHits2": {
     "action": "Custom",
-    "custom_action": "MapSearch_ClearLevelHits2"
+    "custom_action": "MapSearch_ClearLevelHits",
+    "custom_action_param": "MapSearch_Recognize_Level2"
   },
   "MapSearch_ClearLevelHits3": {
     "action": "Custom",
-    "custom_action": "MapSearch_ClearLevelHits3"
+    "custom_action": "MapSearch_ClearLevelHits",
+    "custom_action_param": "MapSearch_Recognize_Level3"
   },
   "MapSearch_ClearLevelHits_Finely_Forged_Stone": {
     "action": "Custom",
-    "custom_action": "MapSearch_ClearLevelHits_Finely_Forged_Stone"
+    "custom_action": "MapSearch_ClearLevelHits",
+    "custom_action_param": "MapSearch_Recognize_Finely_Forged_Stone"
   },
 
   "MapSearch_Row_Loop_LR": { "next": ["MapSearch_MoveH_LR", "MapSearch_Row_End_LR"] },
