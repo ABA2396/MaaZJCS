@@ -16,28 +16,20 @@ COUNTRY_OVERRIDE = {
         "MapSearch_MoveH_LR": 60,
         "MapSearch_MoveH_RL": 60,
         "MapSearch_MoveRight_Init": 4,
-        "MapSearch_MoveUp_Init": 1,
-        "MapSearch_MoveLeft_Init": 1,
     },
     "Shan": {
         "MapSearch_MoveH_LR": 75,
         "MapSearch_MoveH_RL": 75,
-        "MapSearch_MoveUp_Init": 1,
-        "MapSearch_MoveLeft_Init": 1,
     },
     "Ze": {
         "MapSearch_MoveH_LR": 69,
         "MapSearch_MoveH_RL": 69,
-        "MapSearch_MoveUp_Init": 1,
-        "MapSearch_MoveLeft_Init": 1,
     },
     "Long": {
         "MapSearch_MoveH_LR": 70,
         "MapSearch_MoveH_RL": 70,
         "MapSearch_MoveDown_Init": 1,
         "MapSearch_MoveRight_Init": 3,
-        "MapSearch_MoveUp_Init": 1,
-        "MapSearch_MoveLeft_Init": 1,
     },
     "Yu": {},
 }

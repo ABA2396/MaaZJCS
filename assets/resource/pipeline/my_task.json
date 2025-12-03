@@ -315,7 +315,7 @@
     "max_hit": 1
   },
 
-    "PersonalPage": {
+  "PersonalPage": {
     "recognition": "TemplateMatch",
     "template": ["personal_page.png"],
     "roi": [
@@ -363,6 +363,7 @@
       "[JumpBack]MapSearch_Recognize_Level1",
       "[JumpBack]MapSearch_Recognize_Level2",
       "[JumpBack]MapSearch_Recognize_Level3",
+      "[JumpBack]MapSearch_Recognize_Finely_Forged_Stone",
       "[JumpBack]PersonalPage",
       "MapSearch_MoveH_LR",
       "MapSearch_Row_End_LR"
@@ -379,6 +380,7 @@
       "[JumpBack]MapSearch_Recognize_Level1",
       "[JumpBack]MapSearch_Recognize_Level2",
       "[JumpBack]MapSearch_Recognize_Level3",
+      "[JumpBack]MapSearch_Recognize_Finely_Forged_Stone",
       "[JumpBack]PersonalPage",
       "MapSearch_MoveH_RL",
       "MapSearch_Row_End_RL"
