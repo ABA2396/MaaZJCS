@@ -1,11 +1,177 @@
 {
-    "MyTask1": {},
-    "MyTask2": {},
-    "MyTask3": {},
-    "MyTask4": {
-        "recognition": "Custom",
-        "custom_recognition": "my_reco_222",
-        "action": "Custom",
-        "custom_action": "my_action_111"
-    }
+  "MapSearch_Start": { "next": ["MapSearch_MoveLeft_Init"] },
+
+  "MapSearch_MoveLeft_Init": {
+    "action": "Swipe",
+    "begin": [620, 640],
+    "end": [100, 640],
+    "duration": 100,
+    "max_hit": 20,
+    "next": ["MapSearch_MoveLeft_Init", "MapSearch_MoveUp_Init"]
+  },
+
+  "MapSearch_MoveUp_Init": {
+    "action": "Swipe",
+    "begin": [360, 1040],
+    "end": [360, 100],
+    "duration": 100,
+    "max_hit": 20,
+    "next": ["MapSearch_MoveUp_Init", "MapSearch_Row_Loop_LR"]
+  },
+
+  "MapSearch_Recognize_Level1": {
+    "recognition": "TemplateMatch",
+    "template": ["泽1.png", "龙1.png"],
+    "roi": [
+      100,
+      300,
+      620,
+      650
+    ],
+    "green_mask": true,
+    "action": "Click",
+    "target": true,
+    "post_delay": 1000,
+    "max_hit": 1,
+    "next": ["MapSearch_Check_Collected1", "MapSearch_ClearLevelHits1"]
+  },
+
+  "MapSearch_Recognize_Level2": {
+    "recognition": "TemplateMatch",
+    "template": ["山2.png"],
+    "roi": [
+      100,
+      300,
+      620,
+      650
+    ],
+    "green_mask": true,
+    "action": "Click",
+    "target": true,
+    "post_delay": 1000,
+    "max_hit": 1,
+    "next": ["MapSearch_Check_Collected2", "MapSearch_ClearLevelHits2"]
+  },
+
+  "MapSearch_Recognize_Level3": {
+    "recognition": "TemplateMatch",
+    "template": ["山3.png"],
+    "roi": [
+      0,
+      300,
+      720,
+      650
+    ],
+    "green_mask": true,
+    "action": "Click",
+    "target": true,
+    "post_delay": 1000,
+    "max_hit": 1,
+    "next": ["MapSearch_Check_Collected3", "MapSearch_ClearLevelHits3"]
+  },
+
+  "MapSearch_Check_Collected1": {
+    "recognition": "TemplateMatch",
+    "template": ["collected_today.png"],
+    "green_mask": true,
+    "action": "DoNothing",
+    "post_delay": 100,
+    "max_hit": 1
+  },
+  "MapSearch_Check_Collected2": {
+    "recognition": "TemplateMatch",
+    "template": ["collected_today.png"],
+    "green_mask": true,
+    "action": "DoNothing",
+    "post_delay": 100,
+    "max_hit": 1
+  },
+  "MapSearch_Check_Collected3": {
+    "recognition": "TemplateMatch",
+    "template": ["collected_today.png"],
+    "green_mask": true,
+    "action": "DoNothing",
+    "post_delay": 100,
+    "max_hit": 1
+  },
+
+  "MapSearch_ClearLevelHits1": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ClearLevelHits1"
+  },
+  "MapSearch_ClearLevelHits2": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ClearLevelHits2"
+  },
+  "MapSearch_ClearLevelHits3": {
+    "action": "Custom",
+    "custom_action": "MapSearch_ClearLevelHits3"
+  },
+
+
+  "MapSearch_Row_Loop_LR": { "next": ["MapSearch_MoveH_LR", "MapSearch_Row_End_LR"] },
+  "MapSearch_Row_Loop_RL": { "next": ["MapSearch_MoveH_RL", "MapSearch_Row_End_RL"] },
+
+  "MapSearch_MoveH_LR": {
+    "action": "Swipe",
+    "begin": [150, 640],
+    "end": [570, 640],
+    "duration": 400,
+    "post_delay": 1000,
+    "max_hit": 60,
+    "next": [
+      "[JumpBack]MapSearch_Recognize_Level1",
+      "[JumpBack]MapSearch_Recognize_Level2",
+      "[JumpBack]MapSearch_Recognize_Level3",
+      "MapSearch_MoveH_LR",
+      "MapSearch_Row_End_LR"
+    ]
+  },
+
+  "MapSearch_MoveH_RL": {
+    "action": "Swipe",
+    "begin": [570, 640],
+    "end": [150, 640],
+    "duration": 400,
+    "post_delay": 1000,
+    "max_hit": 60,
+    "next": [
+      "[JumpBack]MapSearch_Recognize_Level1",
+      "[JumpBack]MapSearch_Recognize_Level2",
+      "[JumpBack]MapSearch_Recognize_Level3",
+      "MapSearch_MoveH_RL",
+      "MapSearch_Row_End_RL"
+    ]
+  },
+
+  "MapSearch_Row_End_LR": {
+    "action": "Custom",
+    "custom_action": "MapSearch_RowReset",
+    "next": ["MapSearch_MoveDown_From_LR"]
+  },
+  "MapSearch_Row_End_RL": {
+    "action": "Custom",
+    "custom_action": "MapSearch_RowReset",
+    "next": ["MapSearch_MoveDown_From_RL"]
+  },
+
+  "MapSearch_MoveDown_From_LR": {
+    "action": "Swipe",
+    "begin": [360, 300],
+    "end": [360, 700],
+    "duration": 500,
+    "post_delay": 500,
+    "max_hit": 50,
+    "next": ["MapSearch_Row_Loop_RL"]
+  },
+
+  "MapSearch_MoveDown_From_RL": {
+    "action": "Swipe",
+    "begin": [360, 300],
+    "end": [360, 700],
+    "duration": 500,
+    "post_delay": 500,
+    "max_hit": 50,
+    "next": ["MapSearch_Row_Loop_LR"]
+  }
 }
