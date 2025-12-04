@@ -26,7 +26,27 @@
         },
         {
             "name": "当前国度采集",
-            "entry": "MapSearch_Start"
+            "entry": "MapSearch_Run_Current"
+        },
+        {
+            "name": "森之国采集",
+            "entry": "MapSearch_Run_Sen"
+        },
+        {
+            "name": "山之国采集",
+            "entry": "MapSearch_Run_Shan"
+        },
+        {
+            "name": "泽之国采集",
+            "entry": "MapSearch_Run_Ze"
+        },
+        {
+            "name": "龙之国采集",
+            "entry": "MapSearch_Run_Long"
+        },
+        {
+            "name": "羽之国采集",
+            "entry": "MapSearch_Run_Yu"
         }
     ]
 }

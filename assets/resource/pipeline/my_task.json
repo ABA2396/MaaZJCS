@@ -1,41 +1,73 @@
 {
   "Stop": {},
 
-  "MapSearch_Run_All": {
-    "next": [
-      "MapSearch_Click_World"
-    ]
-  },
-
   "MapSearch_Run_Current": {
     "action": "Custom",
     "custom_action": "MapSearch_ResetOverrides",
+    "next": ["MapSearch_Start"]
+  },
+  "MapSearch_Run_All": {
     "next": [
-      "MapSearch_Start"
+      "[JumpBack]MapSearch_Run_Sen",
+      "[JumpBack]MapSearch_Run_Shan",
+      "[JumpBack]MapSearch_Run_Ze",
+      "[JumpBack]MapSearch_Run_Long",
+      "Stop"
+    ]
+  },
+  "MapSearch_Run_Sen": {
+    "max_hit": 1,
+    "next": [
+      "[JumpBack]MapSearch_Country_Sen",
+      "[JumpBack]MapSearch_Click_World",
+      "[JumpBack]MapSearch_Click_Return",
+      "Stop"
+    ]
+  },
+  "MapSearch_Run_Shan": {
+    "max_hit": 1,
+    "next": [
+      "[JumpBack]MapSearch_Country_Shan",
+      "[JumpBack]MapSearch_Click_World",
+      "[JumpBack]MapSearch_Click_Return",
+      "Stop"
+    ]
+  },
+  "MapSearch_Run_Ze": {
+    "max_hit": 1,
+    "next": [
+      "[JumpBack]MapSearch_Country_Ze",
+      "[JumpBack]MapSearch_Click_World",
+      "[JumpBack]MapSearch_Click_Return",
+      "Stop"
+    ]
+  },
+  "MapSearch_Run_Long": {
+    "max_hit": 1,
+    "next": [
+      "[JumpBack]MapSearch_Country_Long",
+      "[JumpBack]MapSearch_Click_World",
+      "[JumpBack]MapSearch_Click_Return",
+      "Stop"
+    ]
+  },
+  "MapSearch_Run_Yu": {
+    "max_hit": 1,
+    "next": [
+      "[JumpBack]MapSearch_Country_Yu",
+      "[JumpBack]MapSearch_Click_World",
+      "[JumpBack]MapSearch_Click_Return",
+      "Stop"
     ]
   },
 
   "MapSearch_Click_World": {
     "recognition": "TemplateMatch",
     "template": ["world_icon.png"],
-    "roi":[
-      580,
-      1180,
-      140,
-      100
-    ],
+    "roi": [580, 1180, 140, 100],
     "action": "Click",
     "target": true,
-    "post_delay": 1000,
-    "next": [
-      "[JumpBack]MapSearch_Country_Sen",
-      "[JumpBack]MapSearch_Country_Shan",
-      "[JumpBack]MapSearch_Country_Ze",
-      "[JumpBack]MapSearch_Country_Long",
-      "[JumpBack]MapSearch_Click_World",
-      "[JumpBack]MapSearch_Click_Return",
-      "Stop"
-    ]
+    "post_delay": 500
   },
 
   "MapSearch_Country_Sen": {
