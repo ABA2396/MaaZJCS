@@ -2,6 +2,11 @@ from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
 import json
+import datetime
+
+
+def now_ts() -> str:
+    return datetime.datetime.now().strftime("[%Y-%m-%d %H:%M:%S]")
 
 COUNTRY_OVERRIDE = {
     "Default": {
@@ -11,25 +16,35 @@ COUNTRY_OVERRIDE = {
         "MapSearch_MoveRight_Init": 2,
         "MapSearch_MoveUp_Init": 30,
         "MapSearch_MoveLeft_Init": 30,
+        "MapSearch_MoveDown_From_LR": 25,
+        "MapSearch_MoveDown_From_RL": 25,
     },
     "Sen": {
         "MapSearch_MoveH_LR": 60,
         "MapSearch_MoveH_RL": 60,
         "MapSearch_MoveRight_Init": 4,
+        "MapSearch_MoveDown_From_LR": 15,
+        "MapSearch_MoveDown_From_RL": 15,
     },
     "Shan": {
         "MapSearch_MoveH_LR": 75,
         "MapSearch_MoveH_RL": 75,
+        "MapSearch_MoveDown_From_LR": 16,
+        "MapSearch_MoveDown_From_RL": 16,
     },
     "Ze": {
         "MapSearch_MoveH_LR": 69,
         "MapSearch_MoveH_RL": 69,
+        "MapSearch_MoveDown_From_LR": 20,
+        "MapSearch_MoveDown_From_RL": 20,
     },
     "Long": {
         "MapSearch_MoveH_LR": 70,
         "MapSearch_MoveH_RL": 70,
         "MapSearch_MoveDown_Init": 1,
         "MapSearch_MoveRight_Init": 3,
+        "MapSearch_MoveDown_From_LR": 23,
+        "MapSearch_MoveDown_From_RL": 23,
     },
     "Yu": {},
 }
@@ -116,6 +131,7 @@ class MapSearchClearLevelHits(CustomAction):
                     param = raw
 
             context.clear_hit_count(param)
+            print(f"{now_ts()} Cleared hit count for {param}")
 
             return CustomAction.RunResult(success=True)
         except Exception:
@@ -154,19 +170,15 @@ class MapSearchApplyCountryLimits(CustomAction):
                     param = raw
             if isinstance(param, str):
                 node_map = COUNTRY_OVERRIDE.get(param)
-                print(node_map)
                 if node_map:
                     for _n, _val in node_map.items():
-                        print(f"Overriding {_n} with max_hit={int(_val)}")
+                        print(f"{now_ts()} Overriding {_n} with max_hit={int(_val)}")
                         context.override_pipeline({ _n: {"max_hit": int(_val)} })
                 template_map = TEMPLATE_OVERRIDE.get(param)
                 if template_map:
                     for _t_node, _t_list in template_map.items():
-                        try:
-                            print(f"Overriding template {_t_node} -> {_t_list}")
-                            context.override_pipeline({ _t_node: {"template": list(_t_list)} })
-                        except Exception:
-                            print(f"Failed to override template for {_t_node}")
+                        print(f"{now_ts()} Overriding template {_t_node} -> {_t_list}")
+                        context.override_pipeline({ _t_node: {"template": list(_t_list)} })
         except Exception:
             return CustomAction.RunResult(success=False)
 
@@ -180,8 +192,29 @@ class MapSearchResetOverrides(CustomAction):
         try:
             default = COUNTRY_OVERRIDE.get("Default", {})
             for _n, _val in default.items():
-                print(f"Reset override: {_n} to {_val}")
+                print(f"{now_ts()} Reset override: {_n} to {_val}")
                 context.override_pipeline({ _n: {"max_hit": int(_val)} })
+        except Exception:
+            return CustomAction.RunResult(success=False)
+
+        return CustomAction.RunResult(success=True)
+    
+@AgentServer.custom_action("MapSearch_Handle_Collected_Today")
+class MapSearchHandleCollectedToday(CustomAction):
+    def run(self, context: Context, argv: CustomAction.RunArg) -> CustomAction.RunResult:
+        try:
+            param = None
+            if hasattr(argv, "custom_action_param"):
+                raw = argv.custom_action_param
+                if isinstance(raw, str):
+                    try:
+                        param = json.loads(raw)
+                    except Exception:
+                        param = raw
+                else:
+                    param = raw
+            if isinstance(param, str):
+                print(f"{now_ts()} {param} completed")
         except Exception:
             return CustomAction.RunResult(success=False)
 

@@ -26,15 +26,15 @@
     ],
     "action": "Click",
     "target": true,
-    "post_delay": 500,
+    "post_delay": 1000,
     "next": [
       "[JumpBack]MapSearch_Country_Sen",
       "[JumpBack]MapSearch_Country_Shan",
       "[JumpBack]MapSearch_Country_Ze",
       "[JumpBack]MapSearch_Country_Long",
-      "[JumpBack]MapSearch_Country_Yu",
       "[JumpBack]MapSearch_Click_World",
-      "[JumpBack]MapSearch_Click_Return"
+      "[JumpBack]MapSearch_Click_Return",
+      "Stop"
     ]
   },
 
@@ -185,7 +185,7 @@
       650
     ],
     "green_mask": true,
-    "post_delay": 1500,
+    "post_delay": 2500,
     "max_hit": 1,
     "next": ["MapSearch_Recognize_Level1ReCheck", "Stop"]
   },
@@ -215,7 +215,7 @@
       650
     ],
     "green_mask": true,
-    "post_delay": 1500,
+    "post_delay": 2500,
     "max_hit": 1,
     "next": ["MapSearch_Recognize_Level2ReCheck", "Stop"]
   },
@@ -246,7 +246,7 @@
       650
     ],
     "green_mask": true,
-    "post_delay": 1500,
+    "post_delay": 2500,
     "max_hit": 1,
     "next": ["MapSearch_Recognize_Level3ReCheck", "Stop"]
   },
@@ -286,7 +286,9 @@
     "recognition": "TemplateMatch",
     "template": ["collected_today.png"],
     "green_mask": true,
-    "action": "DoNothing",
+    "action": "Custom",
+    "custom_action": "MapSearch_Handle_Collected_Today",
+    "custom_action_param": "MapSearch_Recognize_Level1",
     "post_delay": 100,
     "max_hit": 1
   },
@@ -294,7 +296,9 @@
     "recognition": "TemplateMatch",
     "template": ["collected_today.png"],
     "green_mask": true,
-    "action": "DoNothing",
+    "action": "Custom",
+    "custom_action": "MapSearch_Handle_Collected_Today",
+    "custom_action_param": "MapSearch_Recognize_Level2",
     "post_delay": 100,
     "max_hit": 1
   },
@@ -302,7 +306,9 @@
     "recognition": "TemplateMatch",
     "template": ["collected_today.png"],
     "green_mask": true,
-    "action": "DoNothing",
+    "action": "Custom",
+    "custom_action": "MapSearch_Handle_Collected_Today",
+    "custom_action_param": "MapSearch_Recognize_Level3",
     "post_delay": 100,
     "max_hit": 1
   },
@@ -310,7 +316,9 @@
     "recognition": "TemplateMatch",
     "template": ["collected_today.png"],
     "green_mask": true,
-    "action": "DoNothing",
+    "action": "Custom",
+    "custom_action": "MapSearch_Handle_Collected_Today",
+    "custom_action_param": "MapSearch_Recognize_Finely_Forged_Stone",
     "post_delay": 100,
     "max_hit": 1
   },
@@ -390,12 +398,12 @@
   "MapSearch_Row_End_LR": {
     "action": "Custom",
     "custom_action": "MapSearch_RowReset",
-    "next": ["MapSearch_MoveDown_From_LR"]
+    "next": ["MapSearch_MoveDown_From_LR", "Stop"]
   },
   "MapSearch_Row_End_RL": {
     "action": "Custom",
     "custom_action": "MapSearch_RowReset",
-    "next": ["MapSearch_MoveDown_From_RL"]
+    "next": ["MapSearch_MoveDown_From_RL", "Stop"]
   },
 
   "MapSearch_MoveDown_From_LR": {
