@@ -1,6 +1,7 @@
 from maa.agent.agent_server import AgentServer
 from maa.custom_action import CustomAction
 from maa.context import Context
+import os
 import json
 import datetime
 
@@ -69,7 +70,6 @@ TEMPLATE_OVERRIDE = {
         "MapSearch_Recognize_Level2ReCheck": ["森2.png"],
         "MapSearch_Recognize_Level3": ["森3.png"],
         "MapSearch_Recognize_Level3ReCheck": ["森3.png"],
-        "MapSearch_Recognize_Finely_Forged_Stone": ["精锻石.png"],
     },
     "Shan": {
         "MapSearch_Recognize_Level1": ["山1.png"],
@@ -78,7 +78,6 @@ TEMPLATE_OVERRIDE = {
         "MapSearch_Recognize_Level2ReCheck": ["山2.png"],
         "MapSearch_Recognize_Level3": ["山3.png"],
         "MapSearch_Recognize_Level3ReCheck": ["山3.png"],
-        "MapSearch_Recognize_Finely_Forged_Stone": ["精锻石.png"],
     },
     "Ze": {
         "MapSearch_Recognize_Level1": ["泽1.png"],
@@ -87,7 +86,6 @@ TEMPLATE_OVERRIDE = {
         "MapSearch_Recognize_Level2ReCheck": ["泽2.png"],
         "MapSearch_Recognize_Level3": ["泽3.png"],
         "MapSearch_Recognize_Level3ReCheck": ["泽3.png"],
-        "MapSearch_Recognize_Finely_Forged_Stone": ["精锻石.png"],
     },
     "Long": {
         "MapSearch_Recognize_Level1": ["龙1.png"],
@@ -96,7 +94,6 @@ TEMPLATE_OVERRIDE = {
         "MapSearch_Recognize_Level2ReCheck": ["龙2.png"],
         "MapSearch_Recognize_Level3": ["龙3.png"],
         "MapSearch_Recognize_Level3ReCheck": ["龙3.png"],
-        "MapSearch_Recognize_Finely_Forged_Stone": ["精锻石.png"],
     },
     "Yu": {},
 }
@@ -158,9 +155,6 @@ class MapSearchApplyCountryLimits(CustomAction):
     """在进入某个国度时，根据 COUNTRY_NODE_MAX 覆盖对应节点的 max_hit。"""
 
     def run(self, context: Context, argv: CustomAction.RunArg) -> CustomAction.RunResult:
-
-        MapSearchResetOverrides.run(self, context, argv)
-
         try:
             param = None
             if hasattr(argv, "custom_action_param"):
@@ -172,17 +166,47 @@ class MapSearchApplyCountryLimits(CustomAction):
                         param = raw
                 else:
                     param = raw
+
+            # 以 Default 为基准，覆盖缺失项
+            default_map = COUNTRY_OVERRIDE.get("Default", {})
+            country_map = {}
             if isinstance(param, str):
-                node_map = COUNTRY_OVERRIDE.get(param)
-                if node_map:
-                    for _n, _val in node_map.items():
-                        print(f"{now_ts()} Overriding {_n} with max_hit={int(_val)}")
-                        context.override_pipeline({ _n: {"max_hit": int(_val)} })
-                template_map = TEMPLATE_OVERRIDE.get(param)
-                if template_map:
-                    for _t_node, _t_list in template_map.items():
-                        print(f"{now_ts()} Overriding template {_t_node} -> {_t_list}")
-                        context.override_pipeline({ _t_node: {"template": list(_t_list)} })
+                country_map = COUNTRY_OVERRIDE.get(param, {})
+
+            # 合并 keys（以 default 为主，country_map 覆盖）
+            keys = set(default_map.keys()) | set(country_map.keys())
+            for _n in sorted(keys):
+                _val = country_map.get(_n, default_map.get(_n))
+                if _val is None:
+                    # 如果连 Default 也没有该项，跳过
+                    continue
+                try:
+                    print(f"{now_ts()} Overriding {_n} with max_hit={int(_val)}")
+                    context.override_pipeline({ _n: {"max_hit": int(_val)} })
+                except Exception:
+                    print(f"{now_ts()} Failed to override max_hit for {_n}")
+
+            # 模板同样合并：country 覆盖 Default 的同名项，缺失则使用 Default
+            default_tpls = TEMPLATE_OVERRIDE.get("Default", {})
+            country_tpls = TEMPLATE_OVERRIDE.get(param, {}) if isinstance(param, str) else {}
+            tpl_keys = set(default_tpls.keys()) | set(country_tpls.keys())
+            tpl_files = set()
+            for _t_node in sorted(tpl_keys):
+                _t_list = country_tpls.get(_t_node, default_tpls.get(_t_node))
+                if not _t_list:
+                    continue
+                try:
+                    context.override_pipeline({ _t_node: {"template": list(_t_list)} })
+                    for f in _t_list:
+                        tpl_files.add(f)
+                except Exception:
+                    print(f"{now_ts()} Failed to override template for {_t_node}")
+
+            if tpl_files:
+                names = [os.path.splitext(x)[0] for x in sorted(list(tpl_files))]
+                formatted = '[' + ' '.join(f'[{n}]' for n in names) + ']'
+                print(f"{now_ts()} Overriding templates: {formatted}")
+
         except Exception:
             return CustomAction.RunResult(success=False)
 
