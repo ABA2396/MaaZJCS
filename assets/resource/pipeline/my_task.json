@@ -211,10 +211,10 @@
     "recognition": "TemplateMatch",
     "template": ["森1.png", "山1.png", "泽1.png", "龙1.png"],
     "roi": [
-      100,
+      80,
       300,
-      620,
-      650
+      560,
+      680
     ],
     "green_mask": true,
     "post_delay": 2500,
@@ -225,10 +225,10 @@
     "recognition": "TemplateMatch",
     "template": ["森1.png", "山1.png", "泽1.png", "龙1.png"],
     "roi": [
-      100,
+      80,
       300,
-      620,
-      650
+      560,
+      680
     ],
     "green_mask": true,
     "action": "Click",
@@ -244,7 +244,7 @@
       80,
       300,
       560,
-      650
+      680
     ],
     "green_mask": true,
     "post_delay": 2500,
@@ -259,7 +259,7 @@
       80,
       300,
       560,
-      650
+      680
     ],
     "green_mask": true,
     "action": "Click",
@@ -275,7 +275,7 @@
       80,
       300,
       560,
-      650
+      700
     ],
     "green_mask": true,
     "post_delay": 2500,
@@ -286,9 +286,9 @@
     "recognition": "TemplateMatch",
     "template": ["森3.png", "山3.png", "泽3.png", "龙3.png"],
     "roi": [
-      0,
+      80,
       300,
-      720,
+      560,
       650
     ],
     "green_mask": true,
@@ -302,9 +302,9 @@
     "recognition": "TemplateMatch",
     "template": ["精锻石.png"],
     "roi": [
-      0,
+      80,
       300,
-      720,
+      560,
       650
     ],
     "green_mask": true,
@@ -316,9 +316,9 @@
     "recognition": "TemplateMatch",
     "template": ["精锻石.png"],
     "roi": [
-      0,
+      80,
       300,
-      720,
+      560,
       650
     ],
     "green_mask": true,
