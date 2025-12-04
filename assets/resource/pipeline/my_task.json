@@ -178,7 +178,7 @@
     "end": [100, 640],
     "duration": 100,
     "max_hit": 30,
-    "next": ["MapSearch_MoveLeft_Init", "MapSearch_MoveUp_Init"]
+    "next": ["MapSearch_MoveLeft_Init", "MapSearch_MoveUp_Init", "MapSearch_MoveDown_Init", "MapSearch_MoveRight_Init", "MapSearch_Row_Loop_LR"]
   },
   "MapSearch_MoveUp_Init": {
     "action": "Swipe",
@@ -186,7 +186,7 @@
     "end": [360, 100],
     "duration": 100,
     "max_hit": 30,
-    "next": ["MapSearch_MoveUp_Init", "MapSearch_MoveDown_Init"]
+    "next": ["MapSearch_MoveUp_Init", "MapSearch_MoveDown_Init", "MapSearch_MoveRight_Init", "MapSearch_Row_Loop_LR"]
   },
   "MapSearch_MoveDown_Init":{
     "doc": "地图边缘是没有东西的，可以先往中间滑动一点",
@@ -195,7 +195,7 @@
     "end": [360, 1040],
     "duration": 100,
     "max_hit": 2,
-    "next": ["MapSearch_MoveDown_Init", "MapSearch_MoveRight_Init"]
+    "next": ["MapSearch_MoveDown_Init", "MapSearch_MoveRight_Init", "MapSearch_Row_Loop_LR"]
   },
 "MapSearch_MoveRight_Init":{
     "doc": "地图边缘是没有东西的，可以先往中间滑动一点",

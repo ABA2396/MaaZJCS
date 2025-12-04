@@ -23,18 +23,19 @@ COUNTRY_OVERRIDE = {
         "MapSearch_MoveH_LR": 60,
         "MapSearch_MoveH_RL": 60,
         "MapSearch_MoveRight_Init": 4,
-        "MapSearch_MoveDown_From_LR": 15,
-        "MapSearch_MoveDown_From_RL": 15,
+        "MapSearch_MoveDown_From_LR": 12,
+        "MapSearch_MoveDown_From_RL": 12,
     },
     "Shan": {
         "MapSearch_MoveH_LR": 75,
         "MapSearch_MoveH_RL": 75,
-        "MapSearch_MoveDown_From_LR": 16,
-        "MapSearch_MoveDown_From_RL": 16,
+        "MapSearch_MoveDown_From_LR": 15,
+        "MapSearch_MoveDown_From_RL": 15,
     },
     "Ze": {
         "MapSearch_MoveH_LR": 69,
         "MapSearch_MoveH_RL": 69,
+        "MapSearch_MoveDown_Init": 0,
         "MapSearch_MoveDown_From_LR": 20,
         "MapSearch_MoveDown_From_RL": 20,
     },
@@ -43,8 +44,8 @@ COUNTRY_OVERRIDE = {
         "MapSearch_MoveH_RL": 70,
         "MapSearch_MoveDown_Init": 1,
         "MapSearch_MoveRight_Init": 3,
-        "MapSearch_MoveDown_From_LR": 23,
-        "MapSearch_MoveDown_From_RL": 23,
+        "MapSearch_MoveDown_From_LR": 22,
+        "MapSearch_MoveDown_From_RL": 22,
     },
     "Yu": {},
 }
@@ -157,6 +158,9 @@ class MapSearchApplyCountryLimits(CustomAction):
     """在进入某个国度时，根据 COUNTRY_NODE_MAX 覆盖对应节点的 max_hit。"""
 
     def run(self, context: Context, argv: CustomAction.RunArg) -> CustomAction.RunResult:
+
+        MapSearchResetOverrides.run(self, context, argv)
+
         try:
             param = None
             if hasattr(argv, "custom_action_param"):
