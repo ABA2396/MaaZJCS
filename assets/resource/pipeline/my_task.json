@@ -308,6 +308,19 @@
       650
     ],
     "green_mask": true,
+    "post_delay": 2500,
+    "next": ["MapSearch_Recognize_Finely_Forged_StoneReCheck", "Stop"]
+  },
+  "MapSearch_Recognize_Finely_Forged_StoneReCheck": {
+    "recognition": "TemplateMatch",
+    "template": ["精锻石.png"],
+    "roi": [
+      0,
+      300,
+      720,
+      650
+    ],
+    "green_mask": true,
     "action": "Click",
     "target": true,
     "post_delay": 500,

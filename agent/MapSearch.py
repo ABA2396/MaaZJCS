@@ -62,6 +62,7 @@ TEMPLATE_OVERRIDE = {
         "MapSearch_Recognize_Level3": ["森3.png", "山3.png", "泽3.png", "龙3.png"],
         "MapSearch_Recognize_Level3ReCheck": ["森3.png", "山3.png", "泽3.png", "龙3.png"],
         "MapSearch_Recognize_Finely_Forged_Stone": ["精锻石.png"],
+        "MapSearch_Recognize_Finely_Forged_StoneReCheck": ["粗锻石.png"],
     },
     "Sen": {
         "MapSearch_Recognize_Level1": ["森1.png"],
